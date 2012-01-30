@@ -1,0 +1,86 @@
+body, html {
+    height: 100%;
+    width: 100%; 
+    font-size: 40px;
+    font-size: 12px;
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.home {
+	cursor: none;
+}
+
+.container {
+	padding: 10px;
+}
+
+h2 {
+	font-size: 18px;
+	margin: 15px 0;
+}
+
+/* tables */
+
+table {	
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+}
+
+td, th {
+	text-align: left;
+	border: 1px solid lightgray;
+	padding: 5px;
+	margin: 0;
+}
+
+tr:nth-child(2n) {
+	background-color: rgba(0, 0, 0, .05);
+}
+
+tr.error {
+	background-color: rgba(255, 0, 0, .1);
+}
+
+/* forms */
+
+form li {
+	float: left;
+	clear: both;
+}
+
+label {
+	width: 250px;
+	float: left;
+}
+
+input {
+	float: left;
+}
+
+p {
+	margin: 15px 0;
+}
+
+p.name, p.status {
+    padding: 50px;
+    margin: 0;
+    font-size: 30px;
+    text-align: center;  
+}
+
+p.success {
+	border: 1px solid rgba(0, 255, 0, .5);
+	background-color: rgba(0, 255, 0, .1);
+	padding: 10px;
+}
+
+p.status {
+	padding: 10px 50px 50px 50px;
+}
+
+p.error {
+	color: red;
+}
