@@ -18,25 +18,24 @@
 * If you have a database table for groups, these ID's must be the same as in the database.
 */
 $config['auth_groups'] = array(
-							'admin' => '1',
-							'editor' => '2',
-							'user' => '100'
-							);
+	'admin'	=> '1',
+	'user'	=> '100'
+);
 
 /**
 * The default URI string to redirect to after a successful login.
 */
-$config['auth_login'] = 'admin/dashboard';
+$config['auth_login'] = 'dashboard';
 
 /**
 * The default URI string to redirect to after a successful logout.
 */
-$config['auth_logout'] = 'login';
+$config['auth_logout'] = 'dashboard/login';
 
 /**
 * The URI string to redirect to when a user entered incorrect login details or is not authenticated
 */
-$config['auth_incorrect_login'] = 'login';
+$config['auth_incorrect_login'] = 'dashboard/login';
 
 
 /**
