@@ -40,9 +40,18 @@
 |
 */
 
-$route['default_controller'] = "welcome";
-$route['scaffolding_trigger'] = "";
+// standard routes
+$route['default_controller']	= "home";
+$route['scaffolding_trigger']	= "";
+$route['404_override']			= '';
 
+// new route
+$route['(:any)/new'] = "$1/new_$1";
+
+// dashboard routes
+$route['dashboard']				= "dashboard";
+$route['dashboard/employees']	= "employees";
+$route['dashboard/settings']	= "settings";
 
 // BEGIN AUTHENTICATION LIBRARY ROUTES
 $route['login'] = "admin/admin/login";
