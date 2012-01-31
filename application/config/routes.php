@@ -54,10 +54,10 @@ $route['dashboard/employees']	= "employees";
 $route['dashboard/settings']	= "settings";
 
 // BEGIN AUTHENTICATION LIBRARY ROUTES
-$route['login'] = "admin/admin/login";
-$route['logout'] = "admin/admin/logout";
-$route['register'] = "admin/admin/register";
-$route['admin/dashboard'] = "admin/admin/index";
+$route['dashboard/login']		= "admin/admin/login";
+$route['dashboard/logout']		= "admin/admin/logout";
+$route['dashboard/register']	= "admin/admin/register";
+$route['dashboard/admin']		= "admin/admin/index";
 // END AUTHENTICATION LIBRARY ROUTES
 
 /* End of file routes.php */
