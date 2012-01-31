@@ -1,21 +1,27 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class User extends CI_Controller {
+class Employees extends Application {
+	
+	public function __construct()
+	{
+		parent::__construct();
+		$this->ag_auth->restrict('admin');
+	}
 	
 	public function index()
 	{
 	
 		$this->db
 			->select('*')
-			->from('users')
+			->from('employees')
 			->order_by('id', 'desc');
 		
 		$data['query'] = $this->db->get();
 
-		$this->load->view('user/index', $data);
+		$this->load->view('employee/index', $data);
 	}
 	
-	public function new_user()
+	public function new_employee()
 	{
 
 		// load helpers and libraries
@@ -30,7 +36,7 @@ class User extends CI_Controller {
 			array(
 				'field'	=> 'id', 
 				'label'	=> 'Employee Number', 
-				'rules'	=> 'trim|required|is_unique[users.id]'
+				'rules'	=> 'trim|required|is_unique[employees.id]'
 			),
 			array(
 				'field'	=> 'first_name', 
@@ -56,7 +62,7 @@ class User extends CI_Controller {
 			
 			$data['form_valid'] = $form_valid;
 			
-			$this->load->view('user/new', $data);
+			$this->load->view('employee/new', $data);
 			
 		}
 		else
@@ -71,10 +77,10 @@ class User extends CI_Controller {
 			}
 			
 			// insert the 
-			$success = $this->db->insert('users', $data); 
+			$success = $this->db->insert('employees', $data); 
 			
 			// display juicy success page
-			redirect('/user/?new_user', 'location');
+			redirect('/employee/?new_employee', 'location');
 		
 		}
 	
@@ -82,5 +88,5 @@ class User extends CI_Controller {
 	
 }
 
-/* End of file clock.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file employees.php */
+/* Location: ./application/controllers/employees.php */
