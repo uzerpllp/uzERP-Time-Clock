@@ -112,7 +112,7 @@ function update_clock() {
 		seconds = "0" + seconds
 	}
 	
-	$('.time').html(d.getDate() + d.getDaySuffix() + ' ' + month[d.getMonth() - 1] + ' ' + d.getFullYear() + ', ' + d.getHours() + ":" + minutes + ':' + seconds);
+	$('.time').html(d.getDate() + d.getDaySuffix() + ' ' + month[d.getMonth()] + ' ' + d.getFullYear() + ', ' + d.getHours() + ":" + minutes + ':' + seconds);
   
 }
 
