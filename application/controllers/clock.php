@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Clock extends CI_Controller {
+class Clock extends Application {
 	
 	public function index()
 	{
@@ -13,10 +13,10 @@ class Clock extends CI_Controller {
 		$next_status = 'IN';
 		
 		$this->db
-			->select('in_out.id, in_out.employee, in_out.date, in_out.status, users.first_name, users.last_name')
+			->select('in_out.id, in_out.employee, in_out.date, in_out.status, employees.first_name, employees.last_name')
 			->from('in_out')
 			->where('employee', $_POST['number'])
-			->join('users', 'in_out.employee = users.id')
+			->join('employees', 'in_out.employee = employees.id')
 			->order_by('in_out.id', 'desc')
 			->limit(1);
 		
@@ -103,7 +103,7 @@ class Clock extends CI_Controller {
 		
 			$this->db
 				->select('*')
-				->from('users')
+				->from('employees')
 				->where('id', $_POST['number'])
 				->limit(1);
 			
@@ -147,9 +147,9 @@ class Clock extends CI_Controller {
 	{
 	
 		$this->db
-			->select('in_out.id, in_out.employee, in_out.date, in_out.status, in_out.error, users.first_name, users.last_name')
+			->select('in_out.id, in_out.employee, in_out.date, in_out.status, in_out.error, employees.first_name, employees.last_name')
 			->from('in_out')
-			->join('users', 'in_out.employee = users.id')
+			->join('employees', 'in_out.employee = employees.id')
 			->order_by('in_out.id', 'desc');
 		
 		$data['query'] = $this->db->get();

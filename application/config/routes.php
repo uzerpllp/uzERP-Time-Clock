@@ -52,6 +52,7 @@ $route['(:any)/new'] = "$1/new_$1";
 $route['dashboard']				= "dashboard";
 $route['dashboard/employees']	= "employees";
 $route['dashboard/settings']	= "settings";
+$route['dashboard/time_clock']	= "clock";
 
 // BEGIN AUTHENTICATION LIBRARY ROUTES
 $route['dashboard/login']		= "admin/admin/login";

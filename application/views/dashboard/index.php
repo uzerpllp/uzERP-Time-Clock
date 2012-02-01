@@ -1,11 +1,20 @@
 <?php $this->load->view('common/header'); ?>
 
-	<h2>Dashboard</h2>
+	<div class="content">
 	
-	<ul>
-		<li><a href="/dashboard/employees">Manage Employees</a></li>
-		<li><a href="/dashboard/settings">Settings</a></li>
-		<li><a href="/dashboard/logout">Logout</a></li>
-	</ul>
+		<div class="page-header">
+			<h1>Dashboard</h1>
+		</div>
+		
+		<div class="row">
+			<div class="span14">
+				
+				<div class="logo-container">
+					<img src='/assets/images/logo.png' />
+				</div>
+				
+			</div>
+		</div>
+	</div>
 	
 <?php $this->load->view('common/footer'); ?>
