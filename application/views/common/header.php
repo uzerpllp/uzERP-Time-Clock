@@ -4,9 +4,8 @@
 	
 		<title>uzERP Time Clock</title>
 		
-		<!--<link rel="stylesheet" type="text/css" href="/assets/css/reset.css" />
-		<link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />-->
 		<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css" />
+		
 		<style>
 		   /* Override some defaults */
 		      html, body {
