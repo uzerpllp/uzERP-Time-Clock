@@ -1,4 +1,5 @@
 body, html {
+	color: rgba(0, 0, 0, .7);
     height: 100%;
     width: 100%; 
     font-size: 40px;
@@ -6,6 +7,7 @@ body, html {
     font-family: sans-serif;
     padding: 0;
     margin: 0;
+    background-color:rgba(0, 0, 0, 0.05);
 }
 
 .home {
@@ -13,74 +15,50 @@ body, html {
 }
 
 .container {
-	padding: 10px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	
+	width:  713px;
+	height: 520px;
 }
 
-h2 {
-	font-size: 18px;
+.left-container {
+	width: 500px;
+	height: 370px;
+	float: left;
+	margin-right: 50px;
+	padding-top: 150px;
+}
+
+.left-container p {
 	margin: 15px 0;
-}
-
-/* tables */
-
-table {	
-	border-collapse: collapse;
-	border-spacing: 0;
-	width: 100%;
-}
-
-td, th {
-	text-align: left;
-	border: 1px solid lightgray;
-	padding: 5px;
-	margin: 0;
-}
-
-tr:nth-child(2n) {
-	background-color: rgba(0, 0, 0, .05);
-}
-
-tr.error {
-	background-color: rgba(255, 0, 0, .1);
-}
-
-/* forms */
-
-form li {
-	float: left;
-	clear: both;
-}
-
-label {
-	width: 250px;
-	float: left;
-}
-
-input {
-	float: left;
-}
-
-p {
-	margin: 15px 0;
-}
-
-p.name, p.status {
-    padding: 50px;
-    margin: 0;
+    padding: 0;
     font-size: 30px;
-    text-align: center;  
+	text-align: center;
+}
+
+p.title, p.time {
+	font-size: 20px;
+	margin: 10px 0;
+}
+
+p.time {
+	margin-bottom: 60px;
 }
 
 p.success {
-	border: 1px solid rgba(0, 255, 0, .5);
-	background-color: rgba(0, 255, 0, .1);
-	padding: 10px;
+	color: green;
 }
 
-p.status {
-	padding: 10px 50px 50px 50px;
-}
 
 p.error {
 	color: red;
+}
+
+.swipe-card {
+	float: right;
 }
