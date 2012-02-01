@@ -96,21 +96,43 @@ function reset_screen() {
 };
 
 function update_clock() {
-	console.log('update_clock');
 	
-	var month = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-	
-	
-	var d		= new Date(),
+	var month	= ['January','February','March','April','May','June','July','August','September','October','November','December'],
+		d		= new Date(),
 		minutes	= d.getMinutes();
+		seconds	= d.getSeconds();
 
+	// if minutes or seconds are below 10 prepend a 0 to them
+	
 	if (minutes < 10) {
 		minutes = "0" + minutes
 	}
 	
-	$('.time').html(d.getDate() + d.getDaySuffix() + ' ' + month[d.getMonth() - 1] + ' ' + d.getFullYear() + ', ' + d.getHours() + ":" + minutes + ':' + d.getSeconds());
+	if (seconds < 10) {
+		seconds = "0" + seconds
+	}
+	
+	$('.time').html(d.getDate() + d.getDaySuffix() + ' ' + month[d.getMonth() - 1] + ' ' + d.getFullYear() + ', ' + d.getHours() + ":" + minutes + ':' + seconds);
   
 }
+
+// extend the Data object, adding a day suffix function
+Date.prototype.getDaySuffix = function(utc) {
+
+    var n = utc ? this.getUTCDate() : this.getDate();
+    // If not the 11th and date ends at 1
+    if (n != 11 && (n + '').match(/1$/))
+      return 'st';
+    // If not the 12th and date ends at 2
+    else if (n != 12 && (n + '').match(/2$/))
+      return 'nd';
+    // If not the 13th and date ends at 3
+    else if (n != 13 && (n + '').match(/3$/))
+      return 'rd';
+    else
+      return 'th';
+ 
+};
 
 $(document).ready(function() {
 
@@ -132,26 +154,7 @@ $(document).ready(function() {
 		
 	});
 	
-	update_clock();
-	
+	// update the clock every second
 	setInterval("update_clock()", 1000);
-	
-	
-	
+		
 });
-
-Date.prototype.getDaySuffix =
-  function(utc) {
-    var n = utc ? this.getUTCDate() : this.getDate();
-    // If not the 11th and date ends at 1
-    if (n != 11 && (n + '').match(/1$/))
-      return 'st';
-    // If not the 12th and date ends at 2
-    else if (n != 12 && (n + '').match(/2$/))
-      return 'nd';
-    // If not the 13th and date ends at 3
-    else if (n != 13 && (n + '').match(/3$/))
-      return 'rd';
-    else
-      return 'th';
-  };
