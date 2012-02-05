@@ -48,6 +48,8 @@ $route['404_override']			= '';
 // new route
 $route['(:any)/new'] = "$1/edit";
 
+$route['swipe_card'] = 'home/swipe_card';
+
 // BEGIN AUTHENTICATION LIBRARY ROUTES
 $route['dashboard/login']		= "admin/admin/login";
 $route['dashboard/logout']		= "admin/admin/logout";

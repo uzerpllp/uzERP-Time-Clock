@@ -38,7 +38,7 @@ var reset_timer = null;
 		}
 		
 		$.ajax({
-			url: '/clock/swipe_card/',
+			url: '/swipe_card/',
 			dataType: 'json',
 			data: {
 				name	: name,
