@@ -46,7 +46,7 @@ $route['scaffolding_trigger']	= "";
 $route['404_override']			= '';
 
 // new route
-$route['(:any)/new'] = "$1/new_$1";
+$route['(:any)/new'] = "$1/edit";
 
 // BEGIN AUTHENTICATION LIBRARY ROUTES
 $route['dashboard/login']		= "admin/admin/login";
