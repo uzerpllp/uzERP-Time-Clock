@@ -14,7 +14,7 @@ class Dashboard extends Application {
 	
 		$this->db
 			->select('*')
-			->from('in_out')
+			->from('clock')
 			->where('error', TRUE);
 		
 		$data['query'] = $this->db->get();

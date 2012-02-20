@@ -11,8 +11,9 @@
 				
 				<?php if ($query->num_rows > 0) : ?>
 					
-					<div class="alert-message danger">
-						<p>There are <?php echo $query->num_rows; ?>, be sure to <a href="">correct them</a> before exporting data</p>
+					<div class="alert alert-error">
+						<strong>Error:</strong>
+						There are <?php echo $query->num_rows; ?> clock errors, be sure to <a href="/timeclock/?show_errors=true">correct them</a> before exporting data
 					</div>
 					
 				<?php endif; ?>
