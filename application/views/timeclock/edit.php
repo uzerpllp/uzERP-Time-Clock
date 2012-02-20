@@ -13,19 +13,33 @@
 
 				<fieldset>
 					
-					<legend><?php echo $query->first_name; ?> <?php echo $query->last_name; ?>, <?php echo date('jS F Y', strtotime($query->in)); ?></legend>
+					<legend><?php echo $query->first_name; ?> <?php echo $query->last_name; ?>, <?php echo date('jS F Y', $query->in); ?></legend>
 					
 					<div class="control-group">
 						<label class="control-label" for="clock_in">In</label>
-						<div class="controls">
-							<input type="text" id="clock_in" name="clock[in]" value="<?php echo $query->in; ?>">
+						<div class="datetime controls">
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('d', $query->in); ?>"><span> / </span>
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('m', $query->in); ?>"><span> / </span>
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('Y', $query->in); ?>"><span>&nbsp;&nbsp;</span>
+						
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('h', $query->in); ?>"><span>:</span>
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('i', $query->in); ?>"><span>:</span>
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('s', $query->in); ?>"><span> </span>
 						</div>
 					</div>
 					
 					<div class="control-group">
 						<label class="control-label" for="clock_out">Out</label>
-						<div class="controls">
-							<input type="text" id="clock_out" name="clock[out]" value="<?php echo $query->in; ?>">
+						<div class="datetime controls">
+							
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('d', $query->out); ?>"><span> / </span>
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('m', $query->out); ?>"><span> / </span>
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('Y', $query->out); ?>"><span>&nbsp;&nbsp;</span>
+						
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('h', $query->out); ?>"><span>:</span>
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('i', $query->out); ?>"><span>:</span>
+							<input type="text" class="input-mini" id="clock_in" name="clock[in]" value="<?php the_date('s', $query->out); ?>"><span> </span>							
+							
 						</div>
 					</div>
 					

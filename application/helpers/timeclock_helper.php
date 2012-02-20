@@ -68,4 +68,14 @@ function get_setting($key)
 	
 }
 
+function the_date($format, $date = NULL)
+{
+
+	if (!empty($date))
+	{
+		echo date($format, $date);
+	}
+
+}
+
 // end of time_clock_helper.php

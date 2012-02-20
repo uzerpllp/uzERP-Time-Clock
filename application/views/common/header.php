@@ -85,6 +85,21 @@
 		      	
 		      }
 		      
+		      .controls.datetime input, span {
+		      	float: left !important;
+		      	
+		      	
+		      	
+		      }
+		      .controls.datetime span {
+		      	padding: 5px 3px;
+		      	
+		      	
+		      }
+		      .controls.datetime input {
+		      	width: 30px !important;
+		      }
+		      
 		      </style>
 		<script src="/assets/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 		
