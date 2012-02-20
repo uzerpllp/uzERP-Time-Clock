@@ -78,6 +78,7 @@ class Home extends CI_Controller {
 				
 				// close off the current swipe, mark as an error
 				$data = array(
+					'in'	=> $last_status->in,
 					'out'	=> $last_status->in,
 					'error'	=> TRUE
 				);
