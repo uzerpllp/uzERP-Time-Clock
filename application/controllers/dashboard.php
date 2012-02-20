@@ -11,7 +11,15 @@ class Dashboard extends Application {
 	public function index()
 	{
 	
-		$this->load->view('dashboard/index');
+	
+		$this->db
+			->select('*')
+			->from('in_out')
+			->where('error', TRUE);
+		
+		$data['query'] = $this->db->get();
+		
+		$this->load->view('dashboard/index', $data);
 	}
 		
 }

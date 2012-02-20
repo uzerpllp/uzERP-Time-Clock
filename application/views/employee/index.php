@@ -4,17 +4,29 @@
 	
 		<div class="page-header">
 			<h1>Employees</h1>
-			<a class="btn large primary" href="/user/new/">Add User</a>
+			<a class="btn large primary" href="/employees/new/">Add User</a>
 		</div>
 		
 		<div class="row">
 			<div class="span14">
 				
-				<?php if (isset($_GET['new_user'])) : ?>
-					<p class="success">User created</p>
+				<?php if (isset($_GET['success'])) : ?>
+					
+					<div class="alert alert-success">
+						User created successfully
+					</div>
+					
 				<?php endif; ?>
 				
-				<table class="bordered-table zebra-striped">
+				<?php if (isset($_GET['error'])) : ?>
+					
+					<div class="alert alert-error">
+						Failed to create user
+					</div>
+					
+				<?php endif; ?>
+				
+				<table class="table table-bordered table-striped">
 					
 					<tr>
 						<th>Employee Number</th>
@@ -24,7 +36,7 @@
 					<?php foreach ($query->result() as $row) : ?>
 					
 						<tr>
-							<td><?php echo $row->id; ?></td>
+							<td><a href="/employees/edit/<?php echo $row->id; ?>"><?php echo $row->number; ?></a></td>
 							<td><?php echo $row->first_name . ' ' . $row->last_name; ?></td>
 						</tr>
 					

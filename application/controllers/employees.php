@@ -21,8 +21,10 @@ class Employees extends Application {
 		$this->load->view('employee/index', $data);
 	}
 	
-	public function new_employee()
+	public function edit($id = NULL)
 	{
+
+		$action = (!empty($id) ? 'edit' : 'new');
 
 		// load helpers and libraries
 		$this->load->helper(array('form', 'url'));
@@ -32,11 +34,18 @@ class Employees extends Application {
 		// fields must be set here even if they have no validation, this is to allow
 		// he value to be set back to the form after failed validation
 		
+		$number_rule = '';
+		
+		if ($action == 'new')
+		{
+			$number_rule = '|is_unique[employees.number]';
+		}
+		
 		$rules = array(
 			array(
-				'field'	=> 'id', 
-				'label'	=> 'Employee Number', 
-				'rules'	=> 'trim|required|is_unique[employees.id]'
+				'field'	=> 'number', 
+				'label'	=> 'Employee Number' . $number_rule, 
+				'rules'	=> 'trim|required'
 			),
 			array(
 				'field'	=> 'first_name', 
@@ -50,37 +59,98 @@ class Employees extends Application {
 			)
 		);
 		
-		$this->form_validation->set_error_delimiters('<li>', '</li>');
+		$this->form_validation->set_error_delimiters('<p>', '</p>');
 		$this->form_validation->set_rules($rules);
 
-		// output...
+		// output
 		
-		$form_valid = $this->form_validation->run();
-		
-		if ($form_valid === FALSE)
+		if (isset($_POST['submit']))
 		{
+		
+			// process a form after submit action
 			
-			$data['form_valid'] = $form_valid;
+			// validate the form
+			$form_valid = $this->form_validation->run();
 			
-			$this->load->view('employee/new', $data);
+			//
+			if ($form_valid === FALSE)
+			{
+			
+				$data['form_valid'] = $form_valid;
+				
+				// if a form validation occurs on an edit page we need to return the id
+				if ($action === 'edit')
+				{
+					$action .= '/' . $_POST['id'];
+				}
+				
+				// reload the new / edit screens
+				$this->load->view('employee/' . $action, $data);
+				
+				// we should exit here
+				exit;
+				
+			}
+			
+			// if we've come this far we must have a valid form
+			
+			if ($action === 'new')
+			{
+				
+				// insert the data into the employees table
+				$success = $this->db->insert(
+					'employees',
+					array(
+						'number'		=> $this->input->post('number'),
+						'first_name'	=> $this->input->post('first_name'),
+						'last_name'		=> $this->input->post('last_name'),
+					)
+				);
+								
+			}
+			else 
+			{
+				
+				// ATTN": updaye
+				// insert the data into the employees table
+				$success = $this->db->update(
+					'employees',
+					array(
+						'number'		=> $this->input->post('number'),
+						'first_name'	=> $this->input->post('first_name'),
+						'last_name'		=> $this->input->post('last_name'),
+					),
+					"id = " . $this->input->post('id')
+				);
+			
+			}
+			
+			// by this point we've attempted to insert / update our employee
+			// display employ index a success or failure message
+			
+			redirect('/employees/?' . ($success ? 'success' : 'error'), 'location');
 			
 		}
 		else
 		{
 		
-			$data = array();
-			
-			// loop through the rules, build a data array of the stuff we want in the db
-			foreach ($rules as $rule)
+			$data = NULL;
+					
+			if ($action === 'edit')
 			{
-				$data[$rule['field']] = $this->input->post($rule['field']);
+			
+				// load the user by id
+				
+				$this->db
+					->select('*')
+					->from('employees')
+					->where('id', $id);
+				
+				$data['query'] = $this->db->get();
+			
 			}
 			
-			// insert the 
-			$success = $this->db->insert('employees', $data); 
-			
-			// display juicy success page
-			redirect('/employee/?new_employee', 'location');
+			$this->load->view('employee/edit', $data);
 		
 		}
 	

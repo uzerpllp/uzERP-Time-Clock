@@ -21,7 +21,7 @@
 				<?php foreach ($query->result() as $row) : ?>
 				
 					<tr <?php if ( $row->error == TRUE ) echo 'class="error"' ; ?> >
-						<td><a href="/dashboard/timeclock/edit/<?php echo $row->id; ?>"><?php echo $row->date; ?></a></td>
+						<td><a href="/timeclock/edit/<?php echo $row->id; ?>"><?php echo $row->date; ?></a></td>
 						<td><?php echo $row->employee; ?></td>
 						<td><?php echo $row->first_name . ' ' . $row->last_name; ?></td>
 						<td><?php echo $row->status; ?></td>

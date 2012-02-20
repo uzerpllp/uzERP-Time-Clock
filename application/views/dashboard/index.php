@@ -9,9 +9,13 @@
 		<div class="row">
 			<div class="span14">
 				
-				<div class="logo-container">
-					<img src='/assets/images/logo.png' />
-				</div>
+				<?php if ($query->num_rows > 0) : ?>
+					
+					<div class="alert-message danger">
+						<p>There are <?php echo $query->num_rows; ?>, be sure to <a href="">correct them</a> before exporting data</p>
+					</div>
+					
+				<?php endif; ?>
 				
 			</div>
 		</div>

@@ -1,6 +1,6 @@
-<?php
+<?php 
 
-$this->load->view($this->config->item('auth_views_root') . 'header');
+$this->load->view('common/header');
 
 if(isset($data))
 {
@@ -11,6 +11,6 @@ else
 	$this->load->view($this->config->item('auth_views_root') . 'pages/'.$page);
 }
 
-$this->load->view($this->config->item('auth_views_root') . 'footer');
+$this->load->view('common/footer');
 
-?>
+// end of index.php

@@ -2,21 +2,6 @@
 
 class Home extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	public function index()
 	{
 		$data['body_class'] = 'home';
@@ -26,53 +11,37 @@ class Home extends CI_Controller {
 	public function swipe_card()
 	{
 		
+		// set the default next status
 		$next_status = 'IN';
 		
-		$this->db
-			->select('in_out.id, in_out.number, in_out.date, employees.first_name, employees.last_name')
-			->from('in_out')
-			->where('number', $_POST['number'])
-			->join('employees', 'in_out.number = employees.number')
-			->order_by('in_out.id', 'desc')
-			->limit(1);
+		// convert the employee number to employee id
+		$employee = get_employee($_POST['number']); // ATTN: object
 		
-		$query = $this->db->get();
-		
-		if ($query->num_rows > 0)
+		// check if the employee exists
+		if ($employee === FALSE)
 		{
+			echo json_encode(array('status' => 'NO_USER'));
+			exit;	
+		}
 		
-			// get the data and then get the first element
-			$result = $query->result();
-			$result = $result[0];
+		// get the last clock status
+		$last_status = get_last_clock($employee->id);
+		
+		// do a few checks if the last clock status is IN
+		if ($last_status !== FALSE)
+		{
 			
-			//var_dump($result);
-			
-			if (strtoupper($result->status) === 'IN')
-			{
-				$next_status = 'OUT';	
-			}
-			
-			// get settings from db
-			$this->db->select('value')->from('settings')->where('key', 'minutes_between_swipe');
-			$query = $this->db->get();
-			$row = $query->row();
-			
-			$settings['minutes_between_swipe'] = $row->value;
-			
-			$this->db->select('value')->from('settings')->where('key', 'maximum_shift_length');
-			$query = $this->db->get();
-			$row = $query->row();
-			
-			$settings['maximum_shift_length'] = $row->value;
+			 //*****************************************
+			// CHECK FOR CLOSE SUCCESIVE CLOCK ATTMEPTS
 			
 			// get the difference between now and last clock in / out
-			$diff = abs(time() - strtotime($result->date));
+			$diff = abs(time() - strtotime($last_status->in));
 			
 			// calculate difference in minutes
 			$minutes = $diff / 60;
 			
 			// check if the last clock in / out was less then the thresehold ago
-			if ($settings['minutes_between_swipe'] != 0 && $minutes < $settings['minutes_between_swipe'])
+			if ($minutes < get_setting('minutes_between_swipe'))
 			{
 			
 				// if it was, don't let the employee clock in / out
@@ -80,9 +49,9 @@ class Home extends CI_Controller {
 				echo json_encode(
 					array(
 						'status'			=> 'DELAY',
-						'previous_status'	=> $result->status,
-						'first_name'		=> $result->first_name,
-						'last_name'			=> $result->last_name
+						'previous_status'	=> (is_null($last_status->out) ? 'in' : 'out'),
+						'first_name'		=> $employee->first_name,
+						'last_name'			=> $employee->last_name
 					)
 				);
 				
@@ -90,21 +59,31 @@ class Home extends CI_Controller {
 				
 			}
 			
+			
+			 //****************
+			// SET NEXT STATUS
+			
+			$next_status = (is_null($last_status->out) ? 'OUT' : 'IN');
+			
+			
+			 //****************************
+			// CHECK FOR MISSING CLOCK OUT 
+			
 			// calculate diffence in hours
 			$hours = $diff / 60 / 60;
 			
 			// if the last status is IN and the hours exceeds the parameter...
-			if (($settings['maximum_shift_length'] != 0 && $hours >= $settings['maximum_shift_length']) && strtoupper($result->status) === 'IN')
+			if (($hours >= get_setting('maximum_shift_length')) && is_null($last_status->out))
 			{
 				
-				// set the error
-				
+				// close off the current swipe, mark as an error
 				$data = array(
-					'error' => TRUE,
+					'out'	=> $last_status->in,
+					'error'	=> TRUE
 				);
 				
-				$this->db->where('id', $result->id);
-				$this->db->update('in_out', $data); 
+				$this->db->where('id', $last_status->id);
+				$this->db->update('clock', $data); 
 				
 				// set the next status
 				$next_status = 'IN';
@@ -113,45 +92,29 @@ class Home extends CI_Controller {
 			
 		}
 		
-		// if result doesn't exist we won't have a employee name, fetch it now
-		if (!isset($result))
+		
+		 //************************
+		// STORE SWIPE IN DATABASE
+		
+		if ($next_status == 'IN')
 		{
-		
-			$this->db
-				->select('*')
-				->from('employees')
-				->where('id', $_POST['number'])
-				->limit(1);
-			
-			$query = $this->db->get();
-			
-			if ($query->num_rows > 0)
-			{
-			
-				// get the data and then get the first element
-				$result = $query->result();
-				$result = $result[0];
-				
-			}
-			else
-			{
-				echo json_encode(array('status' => 'NO_USER'));
-				exit;
-			}
-		
+			$success = $this->db->insert('clock', array('employee_id' => $employee->id));
+		}
+		else
+		{
+			$success = $this->db->query("UPDATE `clock` SET `out` = NOW() WHERE `id` =  '" . $last_status->id . "'"); 	
 		}
 		
-		$data = array(
-			'employee'	=> $_POST['number'],
-			'status'	=> $next_status
-		);
+		
+		 //***************
+		// RETURN SUCCESS
 		
 		echo json_encode(
 			array(
-				'success'		=> $this->db->insert('in_out', $data),
+				'success'		=> $success,
 				'status'		=> $next_status,
-				'first_name'	=> $result->first_name,
-				'last_name'		=> $result->last_name
+				'first_name'	=> $employee->first_name,
+				'last_name'		=> $employee->last_name
 			)
 		);
 		
