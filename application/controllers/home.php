@@ -42,7 +42,7 @@ class Home extends CI_Controller {
 			$minutes = $diff / 60;
 			
 			// check if the last clock in / out was less then the thresehold ago
-			if ($minutes < get_setting('minutes_between_swipe') && FALSE)
+			if ($minutes < get_setting('minutes_between_swipe'))
 			{
 			
 				// if it was, don't let the employee clock in / out
