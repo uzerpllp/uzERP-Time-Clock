@@ -10,12 +10,17 @@ class Timeclock extends Application {
 	
 	public function index()
 	{
-	
+		
+		if (isset($_GET['show_errors']))
+		{
+			$this->db->where('error', TRUE);
+		}
+		
 		$this->db
-			->select('in_out.id, in_out.employee, in_out.date, in_out.status, in_out.error, employees.first_name, employees.last_name')
-			->from('in_out')
-			->join('employees', 'in_out.employee = employees.id')
-			->order_by('in_out.id', 'desc');
+			->select('clock.id, clock.employee_id, clock.in, clock.out, clock.error, employees.number as employee_number, employees.first_name, employees.last_name')
+			->from('clock')
+			->join('employees', 'clock.employee_id = employees.id')
+			->order_by('clock.id', 'desc');
 		
 		$data['query'] = $this->db->get();
 		
@@ -25,11 +30,17 @@ class Timeclock extends Application {
 	
 	public function edit($id)
 	{
-	
-//		echo $id;
 		
+		$this->db
+			->select('clock.id, clock.employee_id, clock.in, clock.out, clock.error, employees.number as employee_number, employees.first_name, employees.last_name')
+			->from('clock')
+			->join('employees', 'clock.employee_id = employees.id')
+			->where('clock.id', $id)
+			->order_by('clock.id', 'desc');
 		
-		$this->load->view('timeclock/edit');
+		$data['query'] = $this->db->get()->row();
+		
+		$this->load->view('timeclock/edit', $data);
 			
 	}
 	

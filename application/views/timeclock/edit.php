@@ -9,18 +9,24 @@
 	<div class="row">
 		<div class="span10">
 			
-			<h2>Ben Everard, 5th January 2012</h2>
-			<br />
 			
 			<form class="form-horizontal">
 
 				<fieldset>
-					<legend>Clock In</legend>
+					
+					<legend><?php echo $query->first_name; ?> <?php echo $query->last_name; ?>, <?php echo date('jS F Y', strtotime($query->in)); ?></legend>
 					
 					<div class="control-group">
-						<label class="control-label" for="input01">In / Out Time</label>
+						<label class="control-label" for="input01">In</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" id="input01">
+							<input type="text" class="input-xlarge" id="input01" value="<?php echo $query->in; ?>">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="input01">Out</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge" id="input01" value="<?php echo $query->in; ?>">
 						</div>
 					</div>
 					
@@ -28,26 +34,7 @@
 						<label class="control-label" for="optionsCheckbox">Error</label>
 						<div class="controls">
 							<label class="checkbox">
-								<input type="checkbox" id="optionsCheckbox" value="option1">
-								Untick this box to reset the error status
-							</label>
-						</div>
-					</div>
-					
-					<legend>Clock Out</legend>
-					
-					<div class="control-group">
-						<label class="control-label" for="input01">In / Out Time</label>
-						<div class="controls">
-							<input type="text" class="input-xlarge" id="input01">
-						</div>
-					</div>
-					
-					<div class="control-group">
-						<label class="control-label" for="optionsCheckbox">Error</label>
-						<div class="controls">
-							<label class="checkbox">
-								<input type="checkbox" id="optionsCheckbox" value="option1">
+								<input type="checkbox" id="optionsCheckbox" value="option1" <?php echo ($query->error == 1 ? 'checked="checked"' : ''); ?>>
 								Untick this box to reset the error status
 							</label>
 						</div>
