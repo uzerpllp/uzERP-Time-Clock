@@ -31,17 +31,18 @@ class Home extends CI_Controller {
 		if ($last_status !== FALSE)
 		{
 			
+			// get the difference between now and last clock in / out
+			$diff = abs(time() - $last_status->in);
+			
+			
 			 //*****************************************
 			// CHECK FOR CLOSE SUCCESIVE CLOCK ATTMEPTS
-			
-			// get the difference between now and last clock in / out
-			$diff = abs(time() - strtotime($last_status->in));
 			
 			// calculate difference in minutes
 			$minutes = $diff / 60;
 			
 			// check if the last clock in / out was less then the thresehold ago
-			if ($minutes < get_setting('minutes_between_swipe'))
+			if ($minutes < get_setting('minutes_between_swipe') && FALSE)
 			{
 			
 				// if it was, don't let the employee clock in / out
@@ -99,11 +100,23 @@ class Home extends CI_Controller {
 		
 		if ($next_status == 'IN')
 		{
-			$success = $this->db->insert('clock', array('employee_id' => $employee->id));
+			$success = $this->db->insert(
+				'clock',
+				array(
+					'employee_id'	=> $employee->id,
+					'in'			=> time()
+				)
+			);
 		}
 		else
 		{
-			$success = $this->db->query("UPDATE `clock` SET `out` = NOW() WHERE `id` =  '" . $last_status->id . "'"); 	
+		
+			$success = $this->db->update(
+				'clock',
+				array('out' => time()),
+				array('id' => $last_status->id)
+			);
+				
 		}
 		
 		

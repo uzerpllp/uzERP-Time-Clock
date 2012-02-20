@@ -74,12 +74,11 @@ var reset_timer = null;
 						case 'NO_USER':
 							$('.status')
 								.addClass('error')
-								.html("No employee exists for that employee code");
+								.html("Employee doesn't exist");
 							break;
 							
 					}
-					
-				
+			
 			},
 			complete: function () {
 				reset_timer = setTimeout('reset_screen()', 5000)

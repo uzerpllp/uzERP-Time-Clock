@@ -8,8 +8,7 @@
 	
 	<div class="row">
 		<div class="span10">
-			
-			
+		
 			<form class="form-horizontal">
 
 				<fieldset>
@@ -17,24 +16,24 @@
 					<legend><?php echo $query->first_name; ?> <?php echo $query->last_name; ?>, <?php echo date('jS F Y', strtotime($query->in)); ?></legend>
 					
 					<div class="control-group">
-						<label class="control-label" for="input01">In</label>
+						<label class="control-label" for="clock_in">In</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" id="input01" value="<?php echo $query->in; ?>">
+							<input type="text" id="clock_in" name="clock[in]" value="<?php echo $query->in; ?>">
 						</div>
 					</div>
 					
 					<div class="control-group">
-						<label class="control-label" for="input01">Out</label>
+						<label class="control-label" for="clock_out">Out</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" id="input01" value="<?php echo $query->in; ?>">
+							<input type="text" id="clock_out" name="clock[out]" value="<?php echo $query->in; ?>">
 						</div>
 					</div>
 					
 					<div class="control-group">
-						<label class="control-label" for="optionsCheckbox">Error</label>
+						<label class="control-label" for="clock_error">Error</label>
 						<div class="controls">
 							<label class="checkbox">
-								<input type="checkbox" id="optionsCheckbox" value="option1" <?php echo ($query->error == 1 ? 'checked="checked"' : ''); ?>>
+								<input type="checkbox" id="clock_error" name="clock[error]" <?php echo ($query->error == 1 ? 'checked="checked"' : ''); ?>>
 								Untick this box to reset the error status
 							</label>
 						</div>
