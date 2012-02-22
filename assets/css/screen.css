@@ -11,7 +11,8 @@ body, html {
 }
 
 .home {
-/*	cursor: none;*/
+	-webkit-font-smoothing: antialiased;
+	cursor: none;
 }
 
 .container {
@@ -47,6 +48,7 @@ p.title, p.time {
 }
 
 p.time {
+	color: red;
 	margin-bottom: 60px;
 }
 
