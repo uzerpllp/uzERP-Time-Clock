@@ -47,7 +47,7 @@ function get_last_clock($employee_id)
 
 }
 
-function get_setting($key)
+function get_setting($key, $default = FALSE)
 {
 	$CI =& get_instance();
 	
@@ -64,7 +64,7 @@ function get_setting($key)
 		return $row->value;
 	}
 	
-	return FALSE;
+	return $default;
 	
 }
 

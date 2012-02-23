@@ -44,19 +44,8 @@ class Settings extends Application {
 			
 			$data['form_valid'] = $form_valid;
 			
-			// get settings
-			
-			$this->db->select('value')->from('settings')->where('key', 'minutes_between_swipe');
-			$query = $this->db->get();
-			$row = $query->row();
-			
-			$data['minutes_between_swipe'] = $row->value;
-			
-			$this->db->select('value')->from('settings')->where('key', 'maximum_shift_length');
-			$query = $this->db->get();
-			$row = $query->row();
-			
-			$data['maximum_shift_length'] = $row->value;
+			$data['minutes_between_swipe'] = get_setting('minutes_between_swipe', '');
+			$data['maximum_shift_length'] = get_setting('maximum_shift_length', '');
 			
 			$this->load->view('settings/index', $data);
 			
