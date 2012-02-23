@@ -30,7 +30,55 @@ class Timeclock extends Application {
 	
 	public function edit($id)
 	{
+	
 		
+		if (isset($_POST['submit']))
+		{
+		
+			$in_time = mktime(
+				$_POST['clock']['in']['hour'],
+				$_POST['clock']['in']['minute'],
+				$_POST['clock']['in']['second'],
+				$_POST['clock']['in']['month'],
+				$_POST['clock']['in']['day'],
+				$_POST['clock']['in']['year']
+			);
+			
+			$out_time = mktime(
+				$_POST['clock']['out']['hour'],
+				$_POST['clock']['out']['minute'],
+				$_POST['clock']['out']['second'],
+				$_POST['clock']['out']['month'],
+				$_POST['clock']['out']['day'],
+				$_POST['clock']['out']['year']
+			);
+			
+			if (isset($_POST['clock']['error']))
+			{
+				$error = db_boolean(TRUE);
+			}
+			else
+			{
+				$error = NULL;
+			}
+			
+			$update_data = array(
+				'in'	=> $in_time,
+				'out'	=> $out_time,
+				'error'	=> $error
+			);
+				
+			$success = $this->db->update(
+				'clock',
+				$update_data,
+				array('id' => $id)
+			);
+			
+			$data['update_success'] = $success;
+			
+		}
+		
+		// get the latest data
 		$this->db
 			->select('clock.id, clock.employee_id, clock.in, clock.out, clock.error, employees.number as employee_number, employees.first_name, employees.last_name')
 			->from('clock')
