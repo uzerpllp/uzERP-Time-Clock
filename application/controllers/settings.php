@@ -29,6 +29,11 @@ class Settings extends Application {
 				'field'	=> 'maximum_shift_length', 
 				'label'	=> 'Maximum shift length', 
 				'rules'	=> 'trim|required|numeric'
+			),
+			array(
+				'field'	=> 'swipe_addresses', 
+				'label'	=> 'Swipe addresses (comma delimited)', 
+				'rules'	=> 'trim|required'
 			)
 		);
 		
@@ -46,6 +51,7 @@ class Settings extends Application {
 			
 			$data['minutes_between_swipe'] = get_setting('minutes_between_swipe', '');
 			$data['maximum_shift_length'] = get_setting('maximum_shift_length', '');
+			$data['swipe_addresses'] = get_setting('swipe_addresses', '');
 			
 			$this->load->view('settings/index', $data);
 			

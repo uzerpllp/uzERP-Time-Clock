@@ -90,6 +90,32 @@ function db_boolean($value)
 	
 }
 
+function force_dashboard()
+{
+
+	// we only want to show the home screen (the swipe screen) if the request
+	// is coming from a known machine, as in one that we have set the IP address of
+	
+	// get the ip address for the machine
+	$swipe_addresses = get_setting('swipe_addresses');
+	
+	// if the value doesn't exist...
+	if ($swipe_addresses === FALSE)
+	{
+	
+		// we'll have no choice but to allow the home swipe to all
+		// returning false doesn't force the dashboard	
+		return FALSE;
+		
+	}
+	
+	$swipe_addresses = explode(',', $swipe_addresses);
+	
+	// return the final decision, should this address be forced to dashboard?
+	return (!in_array($_SERVER['REMOTE_ADDR'], $swipe_addresses));
+
+}
+
 function the_date($format, $date = NULL)
 {
 

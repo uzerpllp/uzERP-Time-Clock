@@ -4,8 +4,17 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
+		
+		// only some devices are allowed to access the swipe page
+		if (force_dashboard())
+		{	
+			// if this isn't one, redirect to the dashboard
+			redirect('/dashboard', 'location');
+		}
+		
 		$data['body_class'] = 'home';
 		$this->load->view('home/index', $data);
+		
 	}
 	
 	public function swipe_card()
