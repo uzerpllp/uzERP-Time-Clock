@@ -5,7 +5,7 @@
 	</div>
 	
 	<div class="row">
-		<div class="span14">
+		<div class="wide">
 			
 			<p>Please login to access the uzERP Time Clock admin interface</p>
 			
