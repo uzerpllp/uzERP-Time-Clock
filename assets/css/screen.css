@@ -12,6 +12,9 @@ body, html {
 
 .home {
 	-webkit-font-smoothing: antialiased;
+}
+
+* {
 	cursor: none;
 }
 
@@ -22,7 +25,6 @@ body, html {
 	bottom: 0;
 	left: 0;
 	margin: auto;
-	
 	width:  713px;
 	height: 520px;
 }
@@ -48,7 +50,7 @@ p.title, p.time {
 }
 
 p.time {
-	color: red;
+	color: orangered;
 	margin-bottom: 60px;
 }
 
