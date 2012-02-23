@@ -13,7 +13,7 @@
 			
 				<ul class="nav" style="float: right">
 					<li><a href="#">Hello <?php echo username(); ?>!</a></li>
-					<li><?php echo anchor('logout', 'Logout'); ?></li>
+					<li><?php echo anchor('dashboard/logout', 'Logout'); ?></li>
 				</ul>
 				
 			<?php endif; ?>
