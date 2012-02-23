@@ -63,9 +63,17 @@ class Settings extends Application {
 				     'value' => $this->input->post($rule['field']),
 				);
 				
-				$this->db->where('key', $rule['field']);
-				$this->db->update('settings', $data); 
-			
+				if (get_setting($rule['field']) === FALSE)
+				{
+					$data['key'] = $rule['field'];
+					$this->db->insert('settings', $data);
+				}
+				else
+				{
+					$this->db->where('key', $rule['field']);
+					$this->db->update('settings', $data); 
+				}
+				
 			}
 			
 			// display juicy success page
