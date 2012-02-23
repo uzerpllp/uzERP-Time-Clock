@@ -7,7 +7,7 @@
 	</div>
 	
 	<div class="row">
-		<div class="span10">
+		<div class="wide">
 			
 			<?php if (isset($_GET['show_errors'])) : ?>
 	

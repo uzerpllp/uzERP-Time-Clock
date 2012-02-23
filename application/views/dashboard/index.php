@@ -7,7 +7,7 @@
 		</div>
 		
 		<div class="row">
-			<div class="span14">
+			<div class="wide">
 				
 				<?php if ($query->num_rows > 0) : ?>
 					
@@ -15,7 +15,14 @@
 						<strong>Error:</strong>
 						There are <?php echo $query->num_rows; ?> clock errors, be sure to <a href="/timeclock/?show_errors=true">correct them</a> before exporting data
 					</div>
+				
+				<?php else: ?>
 					
+					<div class="alert alert-success">
+						<strong>Success:</strong>
+						There are no clock errors, you are ready to export your data
+					</div>
+				
 				<?php endif; ?>
 				
 			</div>

@@ -8,7 +8,7 @@
 		</div>
 		
 		<div class="row">
-			<div class="span14">
+			<div class="wide">
 				
 				<?php if (isset($_GET['success'])) : ?>
 					

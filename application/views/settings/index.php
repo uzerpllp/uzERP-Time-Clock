@@ -7,7 +7,7 @@
 	</div>
 	
 	<div class="row">
-		<div class="span10">
+		<div class="wide">
 			
 			<h2>Settings</h2>
 			
