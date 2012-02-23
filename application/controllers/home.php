@@ -42,7 +42,7 @@ class Home extends CI_Controller {
 			$minutes = $diff / 60;
 			
 			// check if the last clock in / out was less then the thresehold ago
-			if ($minutes < get_setting('minutes_between_swipe'))
+			if ($minutes < get_setting('minutes_between_swipe', 1))
 			{
 			
 				// if it was, don't let the employee clock in / out
@@ -74,7 +74,7 @@ class Home extends CI_Controller {
 			$hours = $diff / 60 / 60;
 			
 			// if the last status is IN and the hours exceeds the parameter...
-			if (($hours >= get_setting('maximum_shift_length')) && is_null($last_status->out))
+			if (($hours >= get_setting('maximum_shift_length', '15')) && is_null($last_status->out))
 			{
 				
 				// close off the current swipe, mark as an error
