@@ -68,6 +68,28 @@ function get_setting($key, $default = FALSE)
 	
 }
 
+function db_boolean($value)
+{
+	$CI =& get_instance();
+	
+	$vars = array(
+		'mysql_true' 	=> 1,
+		'mysql_false'	=> 0,
+		'postgre_true'	=> 't',
+		'postgre_false'	=> 'f'
+	);
+	
+	if ($value === TRUE)
+	{
+		return $vars[$CI->db->dbdriver . '_true'];
+	}
+	else
+	{
+		return $vars[$CI->db->dbdriver . '_false'];
+	}
+	
+}
+
 function the_date($format, $date = NULL)
 {
 

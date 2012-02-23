@@ -11,11 +11,10 @@ class Dashboard extends Application {
 	public function index()
 	{
 	
-	
 		$this->db
 			->select('*')
 			->from('clock')
-			->where('error', TRUE);
+			->where('error', db_boolean(TRUE));
 		
 		$data['query'] = $this->db->get();
 		

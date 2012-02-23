@@ -111,7 +111,6 @@ class Employees extends Application {
 			else 
 			{
 				
-				// ATTN": updaye
 				// insert the data into the employees table
 				$success = $this->db->update(
 					'employees',

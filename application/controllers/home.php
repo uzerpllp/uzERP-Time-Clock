@@ -81,7 +81,7 @@ class Home extends CI_Controller {
 				$data = array(
 					'in'	=> $last_status->in,
 					'out'	=> $last_status->in,
-					'error'	=> TRUE
+					'error'	=> db_boolean(TRUE)
 				);
 				
 				$this->db->where('id', $last_status->id);

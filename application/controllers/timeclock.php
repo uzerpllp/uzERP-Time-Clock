@@ -13,7 +13,7 @@ class Timeclock extends Application {
 		
 		if (isset($_GET['show_errors']))
 		{
-			$this->db->where('error', TRUE);
+			$this->db->where('error', db_boolean(TRUE));
 		}
 		
 		$this->db

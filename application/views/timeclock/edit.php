@@ -47,7 +47,7 @@
 						<label class="control-label" for="clock_error">Error</label>
 						<div class="controls">
 							<label class="checkbox">
-								<input type="checkbox" id="clock_error" name="clock[error]" <?php echo ($query->error == 1 ? 'checked="checked"' : ''); ?>>
+								<input type="checkbox" id="clock_error" name="clock[error]" <?php echo (!empty($query->error) ? 'checked="checked"' : ''); ?>>
 								Untick this box to reset the error status
 							</label>
 						</div>
