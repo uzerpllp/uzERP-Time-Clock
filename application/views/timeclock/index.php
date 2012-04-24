@@ -34,8 +34,8 @@
 						<td><a href="/timeclock/edit/<?php echo $row->id; ?>"><?php echo $row->id; ?></a></td>
 						<td><?php echo $row->employee_number; ?></td>
 						<td><?php echo $row->first_name . ' ' . $row->last_name; ?></td>
-						<td><?php the_date('d/m/Y h:i:s', $row->in); ?></td>
-						<td><?php the_date('d/m/Y h:i:s', $row->out); ?></td>
+						<td><?php the_date('d/m/Y H:i:s', strtotime($row->in)); ?></td>
+						<td><?php the_date('d/m/Y H:i:s', strtotime($row->out)); ?></td>
 						<td><?php echo (!empty($row->error) ? 'Yes' : '' )	; ?></td>
 					</tr>
 				

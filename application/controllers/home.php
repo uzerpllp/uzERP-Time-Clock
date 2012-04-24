@@ -41,7 +41,7 @@ class Home extends CI_Controller {
 		{
 			
 			// get the difference between now and last clock in / out
-			$diff = abs(time() - $last_status->in);
+			$diff = abs(time() - strtotime($last_status->in));
 			
 			
 			 //*****************************************
@@ -113,7 +113,7 @@ class Home extends CI_Controller {
 				'clock',
 				array(
 					'employee_id'	=> $employee->id,
-					'in'			=> time()
+					'in'			=> date('Y-m-d H:i:s')
 				)
 			);
 		}
@@ -122,7 +122,7 @@ class Home extends CI_Controller {
 		
 			$success = $this->db->update(
 				'clock',
-				array('out' => time()),
+				array('out' => date('Y-m-d H:i:s')),
 				array('id' => $last_status->id)
 			);
 				

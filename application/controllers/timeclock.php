@@ -63,8 +63,8 @@ class Timeclock extends Application {
 			}
 			
 			$update_data = array(
-				'in'	=> $in_time,
-				'out'	=> $out_time,
+				'in'	=> date('Y-m-d H:i:s', $in_time),
+				'out'	=> date('Y-m-d H:i:s', $out_time),
 				'error'	=> $error
 			);
 				
