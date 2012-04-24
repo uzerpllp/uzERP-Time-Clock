@@ -4,7 +4,7 @@
 	
 		<div class="page-header">
 			<h1>Employees</h1>
-			<a class="btn large primary" href="/employees/new/">Add User</a>
+			<a class="btn large primary" href="/employees/new/">Add Employee</a>
 		</div>
 		
 		<div class="row">
