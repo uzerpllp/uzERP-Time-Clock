@@ -98,9 +98,9 @@ function force_dashboard()
 	
 	// get the ip address for the machine
 	$swipe_addresses = get_setting('swipe_addresses');
-	
+
 	// if the value doesn't exist...
-	if ($swipe_addresses === FALSE)
+	if ($swipe_addresses === FALSE || $swipe_addresses === 'ignore')
 	{
 	
 		// we'll have no choice but to allow the home swipe to all

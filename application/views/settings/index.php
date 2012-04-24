@@ -25,7 +25,7 @@
 				<label>Maximum shift length (hours):</label>
 				<input type="text" name="maximum_shift_length" value="<?php echo set_value('maximum_shift_length', $maximum_shift_length); ?>" />
 				
-				<label>Allowed devices (add each IP of a device that is allowed to use the swipe interface, comma delimited)</label>
+				<label>Allowed devices (add each IP of a device that is allowed to use the swipe interface, comma delimited). Use 'ignore' to not discriminate.</label>
 				<input type="text" name="swipe_addresses" value="<?php echo set_value('swipe_addresses', $swipe_addresses); ?>" />
 				
 				<br />
