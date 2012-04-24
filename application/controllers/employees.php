@@ -14,7 +14,7 @@ class Employees extends Application {
 		$this->db
 			->select('*')
 			->from('employees')
-			->order_by('id', 'desc');
+			->order_by('number', 'asc');
 		
 		$data['query'] = $this->db->get();
 
