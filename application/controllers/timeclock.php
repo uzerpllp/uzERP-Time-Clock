@@ -36,9 +36,15 @@ class Timeclock extends Application {
 		$this->form_validation->set_rules($rules);
 
 		// output
+		$form_valid = NULL;
 
-		$data['form_valid'] = $form_valid = $this->form_validation->run();
+		if (isset($_POST['submit']))
+		{
+			$form_valid = $this->form_validation->run();
+		}
 
+		$data['form_valid'] = $form_valid;
+		
 		if ($form_valid === TRUE)
 		{
 			
