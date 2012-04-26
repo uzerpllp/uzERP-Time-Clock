@@ -126,4 +126,16 @@ function the_date($format, $date = NULL)
 
 }
 
+function get_week_number_date($week, $year)
+{
+
+	// Count from '0104' because January 4th is always in week 1
+	// (according to ISO 8601).
+	$time = strtotime($year . '0104 +' . ($week - 1) . ' weeks');
+	
+	// Get the time of the first day of the week
+	return strtotime('-' . (date('w', $time) - 1) . ' days', $time);
+
+}
+
 // end of time_clock_helper.php

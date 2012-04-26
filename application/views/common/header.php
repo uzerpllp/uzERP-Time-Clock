@@ -99,7 +99,9 @@
 		      .controls.datetime input {
 		      	width: 30px !important;
 		      }
-		      
+		      .alert p:last-child {
+					margin-bottom: 0;
+				}
 		      </style>
 		<script src="/assets/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 		

@@ -10,7 +10,48 @@ class Timeclock extends Application {
 	
 	public function index()
 	{
+
+		// load helpers and libraries
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
 		
+		// build + set form validation rules
+		// fields must be set here even if they have no validation, this is to allow
+		// he value to be set back to the form after failed validation
+		
+		$rules = array(
+			array(
+				'field'	=> 'week', 
+				'label'	=> 'Week Number', 
+				'rules'	=> 'trim|numeric'
+			),
+			array(
+				'field'	=> 'year', 
+				'label'	=> 'Year', 
+				'rules'	=> 'trim|numeric'
+			)
+		);
+		
+		$this->form_validation->set_error_delimiters('<p>', '</p>');
+		$this->form_validation->set_rules($rules);
+
+		// output
+
+		$data['form_valid'] = $form_valid = $this->form_validation->run();
+
+		if ($form_valid === TRUE)
+		{
+			
+			$year = $this->input->post('year');
+			$week = $this->input->post('week');
+
+			$start	= get_week_number_date($week, $year);
+			$end	= strtotime('+1 week', $start);
+
+			$this->db->where('("in" BETWEEN \'' . date('o-m-d', $start) . '\' AND \'' . date('o-m-d', $end) . '\')', NULL, FALSE);
+
+		}
+
 		if (isset($_GET['show_errors']))
 		{
 			$this->db->where('error', db_boolean(TRUE));

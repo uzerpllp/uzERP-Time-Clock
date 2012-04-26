@@ -8,6 +8,14 @@
 	
 	<div class="row">
 		<div class="wide">
+
+			<?php if (isset($form_valid) && $form_valid === FALSE) : ?>
+
+				<div class="alert alert-error">
+					<?php echo validation_errors(); ?>
+				</div>
+
+			<?php endif; ?>
 			
 			<?php if (isset($_GET['show_errors'])) : ?>
 	
@@ -16,6 +24,16 @@
 				</div>
 				
 			<?php endif; ?>
+
+			<form method="post">
+
+				<input type="text" name="week" class="input-medium" placeholder="Week Number" value="<?php echo set_value('week', date('W')); ?>" />
+				<input type="text" name="year" class="input-medium" placeholder="Year" value="<?php echo set_value('year', date('o')); ?>"/>
+
+				<input class="btn btn-primary" type="submit" name="submit" value="Search" />
+				<input class="btn" type="submit" name="clear" value="Clear" />
+
+			</form>
 			
 			<table class="table table-bordered table-striped">
 				
