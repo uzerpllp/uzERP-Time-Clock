@@ -9,6 +9,8 @@
 	<div class="row">
 		<div class="wide">
 		
+			<?php if (isset($_GET['success'])) $success = TRUE; ?>
+			
 			<?php if (isset($success) && $success === TRUE) : ?>
 			
 				<div class="alert alert-success">
