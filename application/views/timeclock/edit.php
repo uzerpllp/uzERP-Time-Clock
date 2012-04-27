@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="wide">
 		
-			<?php if (isset($update_success) && $update_success === TRUE) : ?>
+			<?php if (isset($success) && $success === TRUE) : ?>
 			
 				<div class="alert alert-success">
 					<strong>Success:</strong>
@@ -29,37 +29,46 @@
 			
 			<form class="form-horizontal" method="POST">
 
-				<legend><?php echo $query->first_name; ?> <?php echo $query->last_name; ?>, <?php echo date('jS F Y', strtotime($query->in)); ?></legend>
+				<?php if ($action === 'edit') : ?>
+					<legend><?php echo $query->first_name; ?> <?php echo $query->last_name; ?>, <?php echo date('jS F Y', strtotime($query->in)); ?></legend>
+				<?php endif; ?>
 
 				<fieldset>
 					
 					<input type="hidden" name="submit" />
-					
+
+					<?php if ($action === 'new') : ?>
+
+						<div class="control-group">
+							<label class="control-label" for="employee">Employee</label>
+							<div class="datetime controls">
+								<select id="employee" name="clock[employee]">
+
+									<?php foreach ($employees as $id => $name) : ?>
+										<option value="<?php echo $id; ?>"><?php echo $name; ?></option>
+									<?php endforeach; ?>
+
+								</select>
+							</div>
+						</div>
+
+					<?php endif; ?>
+
 					<div class="control-group">
 						<label class="control-label" for="clock_in">In</label>
 						<div class="datetime controls">
-							<input type="text" class="input-mini" name="clock[in][day]" value="<?php the_date('d', strtotime($query->in)); ?>"><span> / </span>
-							<input type="text" class="input-mini" name="clock[in][month]" value="<?php the_date('m', strtotime($query->in)); ?>"><span> / </span>
-							<input type="text" class="input-mini" name="clock[in][year]" value="<?php the_date('Y', strtotime($query->in)); ?>"><span>&nbsp;&nbsp;</span>
-						
-							<input type="text" class="input-mini" name="clock[in][hour]" value="<?php the_date('H', strtotime($query->in)); ?>"><span>:</span>
-							<input type="text" class="input-mini" name="clock[in][minute]" value="<?php the_date('i', strtotime($query->in)); ?>"><span>:</span>
-							<input type="text" class="input-mini" name="clock[in][second]" value="<?php the_date('s', strtotime($query->in)); ?>"><span> </span>
+							<input type="text" class="datepicker" name="clock[in][date]" value="<?php echo $in['date']; ?>">
+							<input type="text" class="input-mini" name="clock[in][hour]" value="<?php echo $in['hour']; ?>"><span>:</span>
+							<input type="text" class="input-mini" name="clock[in][minute]" value="<?php echo $in['minute']; ?>">
 						</div>
 					</div>
 					
 					<div class="control-group">
 						<label class="control-label" for="clock_out">Out</label>
 						<div class="datetime controls">
-							
-							<input type="text" class="input-mini" name="clock[out][day]" value="<?php the_date('d', strtotime($query->out)); ?>"><span> / </span>
-							<input type="text" class="input-mini" name="clock[out][month]" value="<?php the_date('m', strtotime($query->out)); ?>"><span> / </span>
-							<input type="text" class="input-mini" name="clock[out][year]" value="<?php the_date('Y', strtotime($query->out)); ?>"><span>&nbsp;&nbsp;</span>
-						
-							<input type="text" class="input-mini" name="clock[out][hour]" value="<?php the_date('H', strtotime($query->out)); ?>"><span>:</span>
-							<input type="text" class="input-mini" name="clock[out][minute]" value="<?php the_date('i', strtotime($query->out)); ?>"><span>:</span>
-							<input type="text" class="input-mini" name="clock[out][second]" value="<?php the_date('s', strtotime($query->out)); ?>"><span> </span>							
-							
+							<input type="text" class="datepicker" name="clock[out][date]" data-date="01/02/2023" value="<?php echo $out['date']; ?>">
+							<input type="text" class="input-mini" name="clock[out][hour]" value="<?php echo $out['hour']; ?>"><span>:</span>
+							<input type="text" class="input-mini" name="clock[out][minute]" value="<?php echo $out['minute']; ?>">
 						</div>
 					</div>
 					

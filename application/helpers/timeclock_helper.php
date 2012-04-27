@@ -138,4 +138,27 @@ function get_week_number_date($week, $year)
 
 }
 
+// yes I know... should be in the employee model
+function get_employees()
+{
+
+	$employees = array();
+
+	$CI =& get_instance();
+	
+	$CI->db
+		->from('employees')
+		->order_by("last_name", "asc"); 
+	
+	$query = $CI->db->get();
+
+	foreach ($query->result() as $row)
+	{
+		$employees[$row->id] = $row->last_name . ', ' . $row->first_name;
+	}
+	
+	return $employees;
+	
+}
+
 // end of time_clock_helper.php

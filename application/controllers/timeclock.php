@@ -44,7 +44,7 @@ class Timeclock extends Application {
 		}
 
 		$data['form_valid'] = $form_valid;
-		
+
 		if ($form_valid === TRUE)
 		{
 			
@@ -75,30 +75,60 @@ class Timeclock extends Application {
 		
 	}
 	
-	public function edit($id)
+	public function edit($id = NULL)
 	{
-	
+
+
+		$data['action'] = $action = (!empty($id) ? 'edit' : 'new');
 		
+		$data['in'] = array(
+			'date'		=> date('d/m/Y'),
+			'hour'		=> '00',
+			'minute'	=> '00'
+		);
+		
+		$data['out'] = array(
+			'date'		=> '',
+			'hour'		=> '',
+			'minute'	=> ''
+		);
+
+		if ($action === 'new')
+		{
+
+			// generate the employee list
+			$data['employees'] = get_employees();
+
+		}
+
 		if (isset($_POST['submit']))
 		{
-		
+
+			$in_time_date	= date_parse_from_format('d/m/Y', $_POST['clock']['in']['date']);
+			$out_time_date	= date_parse_from_format('d/m/Y', $_POST['clock']['out']['date']);
+
 			$in_time = mktime(
 				$_POST['clock']['in']['hour'],
 				$_POST['clock']['in']['minute'],
-				$_POST['clock']['in']['second'],
-				$_POST['clock']['in']['month'],
-				$_POST['clock']['in']['day'],
-				$_POST['clock']['in']['year']
+				0,
+				$in_time_date['month'],
+				$in_time_date['day'],
+				$in_time_date['year']
 			);
-			
-			$out_time = mktime(
-				$_POST['clock']['out']['hour'],
-				$_POST['clock']['out']['minute'],
-				$_POST['clock']['out']['second'],
-				$_POST['clock']['out']['month'],
-				$_POST['clock']['out']['day'],
-				$_POST['clock']['out']['year']
-			);
+
+			if (!empty($_POST['clock']['out']['date']))
+			{
+
+				$out_time = mktime(
+					$_POST['clock']['out']['hour'],
+					$_POST['clock']['out']['minute'],
+					0,
+					$out_time_date['month'],
+					$out_time_date['day'],
+					$out_time_date['year']
+				);
+
+			}
 			
 			if (isset($_POST['clock']['error']))
 			{
@@ -109,19 +139,43 @@ class Timeclock extends Application {
 				$error = NULL;
 			}
 			
-			$update_data = array(
-				'in'	=> date('Y-m-d H:i:s', $in_time),
-				'out'	=> date('Y-m-d H:i:s', $out_time),
-				'error'	=> $error
-			);
-				
-			$success = $this->db->update(
-				'clock',
-				$update_data,
-				array('id' => $id)
-			);
+			$clock_data				= array();
+			$clock_data['in']		= date('Y-m-d H:i:s', $in_time);
+			$clock_data['error']	= $error;
+
+			if (!empty($_POST['clock']['out']['date']))
+			{
+				$clock_data['out'] = date('Y-m-d H:i:s', $out_time);
+			};
+
+			if ($action === 'new')
+			{
+
+				$clock_data['employee_id'] = $_POST['clock']['employee'];
+
+				$success = $this->db->insert(
+					'clock',
+					$clock_data
+				);
+
+				// by this point we've attempted to insert / update our employee
+				// display employ index a success or failure message
 			
-			$data['update_success'] = $success;
+				redirect('/timeclock/edit/' . $this->db->insert_id() . '?' . ($success ? 'success' : 'error'), 'location');
+
+			}
+			else
+			{
+			
+				$success = $this->db->update(
+					'clock',
+					$clock_data,
+					array('id' => $id)
+				);
+
+			}
+			
+			$data['success'] = $success;
 			
 		}
 		
@@ -135,6 +189,28 @@ class Timeclock extends Application {
 		
 		$data['query'] = $this->db->get()->row();
 		
+		if (!empty($data['query']))
+		{
+
+			$data['in'] = array(
+				'date'		=> date('d/m/Y', strtotime($data['query']->in)),
+				'hour'		=> date('H', strtotime($data['query']->in)),
+				'minute'	=> date('i', strtotime($data['query']->in))
+			);
+			
+			if (!empty($data['query']->out))
+			{
+
+				$data['out'] = array(
+					'date'		=> date('d/m/Y', strtotime($data['query']->out)),
+					'hour'		=> date('H', strtotime($data['query']->out)),
+					'minute'	=> date('i', strtotime($data['query']->out))
+				);
+
+			}
+
+		}
+
 		$this->load->view('timeclock/edit', $data);
 			
 	}

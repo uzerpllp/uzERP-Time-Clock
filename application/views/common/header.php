@@ -4,7 +4,7 @@
 	
 		<title>uzERP Time Clock</title>
 		
-		<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="/assets/bootstrap/css/bootstrap.min.css" />
 		
 		<style>
 		   /* Override some defaults */
@@ -99,12 +99,27 @@
 		      .controls.datetime input {
 		      	width: 30px !important;
 		      }
+		      .controls.datetime input.datepicker {
+		      	width: 75px !important;
+		      	margin: 0 15px 0 0;
+		      }
 		      .alert p:last-child {
 					margin-bottom: 0;
 				}
 		      </style>
-		<script src="/assets/js/jquery-1.7.1.min.js" type="text/javascript"></script>
-		
+		<script src="/assets/js/jquery-1.7.1.min.js"></script>
+		<script src="/assets/js/datepicker/js/bootstrap-datepicker.js"></script>
+		<link rel="stylesheet" href="/assets/js/datepicker/css/datepicker.css" />
+
+		<script>
+			$(document).ready(function() {
+
+				$('.datepicker').datepicker({
+					format: 'dd/mm/yyyy'
+				});
+
+			});
+		</script>
 	</head>
 	<body class="<?php if (isset($body_class)) echo $body_class; ?>">
 	

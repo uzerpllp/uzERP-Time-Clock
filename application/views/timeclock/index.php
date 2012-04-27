@@ -4,6 +4,7 @@
 
 	<div class="page-header">
 		<h1>Time Clock</h1>
+		<a class="btn large primary" href="/timeclock/new/">New Clock Entry</a>
 	</div>
 	
 	<div class="row">
