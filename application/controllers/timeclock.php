@@ -78,7 +78,6 @@ class Timeclock extends Application {
 	public function edit($id = NULL)
 	{
 
-
 		$data['action'] = $action = (!empty($id) ? 'edit' : 'new');
 		
 		$data['in'] = array(
@@ -141,12 +140,8 @@ class Timeclock extends Application {
 			
 			$clock_data				= array();
 			$clock_data['in']		= date('Y-m-d H:i:s', $in_time);
+			$clock_data['out']		= (empty($_POST['clock']['out']['date']) ? NULL : date('Y-m-d H:i:s', $out_time));
 			$clock_data['error']	= $error;
-
-			if (!empty($_POST['clock']['out']['date']))
-			{
-				$clock_data['out'] = date('Y-m-d H:i:s', $out_time);
-			};
 
 			if ($action === 'new')
 			{
